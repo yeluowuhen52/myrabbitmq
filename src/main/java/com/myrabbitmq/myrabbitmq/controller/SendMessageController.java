@@ -1,14 +1,17 @@
 package com.myrabbitmq.myrabbitmq.controller;
 
+import com.myrabbitmq.myrabbitmq.config.ProducerConfiguration;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @Author : JCccc
@@ -23,15 +26,24 @@ public class SendMessageController {
 
     @GetMapping("/sendDirectMessage")
     public String sendDirectMessage() {
-        String messageId = String.valueOf(UUID.randomUUID());
-        String messageData = "你好，我不好！";
-        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-        Map<String, Object> map = new HashMap<>();
-        map.put("messageId", messageId);
-        map.put("messageData", messageData);
-        map.put("createTime", createTime);
-        //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
-        rabbitTemplate.convertAndSend("TestDirectExchange", "TestDirectRouting", map);
+        ProducerConfiguration producer = new ProducerConfiguration("MyTestTopic", "MyTestTopicQueue", "MyTestTopicQueue");
+        int cout = 0;
+        producer.send( "Str: " + cout);
+//        String messageId = String.valueOf(UUID.randomUUID());
+//        String messageData = "你好，我不好！";
+//        String createTime = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+//        Map<String, Object> map = new HashMap<>();
+//        map.put("messageId", messageId);
+//        map.put("messageData", messageData);
+//        map.put("createTime", createTime);
+//        //将消息携带绑定键值：TestDirectRouting 发送到交换机TestDirectExchange
+//        rabbitTemplate.convertAndSend("TestDirectExchange", "TestDirectRouting", map);
+
+
+        ProducerConfiguration producer2 = new ProducerConfiguration("MyTestTopic", "MyTestTopicQueue22", "MyTestTopicQueue22");
+        int cout2 = 0;
+        producer2.send( "Str: " + cout2);
+
         return "ok";
     }
 
@@ -59,7 +71,7 @@ public class SendMessageController {
         womanMap.put("createTime", createTime);
         rabbitTemplate.convertAndSend("topicExchange", "topic.woman", womanMap);
         return "ok";
-}
+    }
 
     @GetMapping("/sendFanoutMessage")
     public String sendFanoutMessage() {
