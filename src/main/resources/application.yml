@@ -10,3 +10,11 @@ spring:
     password: guest
     publisher-confirms: true
     publisher-returns: true
+
+dingding:
+  corpId: ding4ea5826e2e1e1c0fee0f45d8e4f7c288
+  appConfigs:
+   - appKey: dingjlapmolmuexyjgxd
+     appsecret: plDvOLLUjf4ayNjlWlj1py-fD9e25BUqtGQ-oJYx88_70hGDxUZjIriHeELM89Ls
+     agentid: 844092190
+     baseUrl: https://oapi.dingtalk.com
