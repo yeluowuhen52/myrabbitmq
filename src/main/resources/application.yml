@@ -4,7 +4,7 @@ spring:
   application:
     name: rabbitmq-provider
   rabbitmq:
-    host: 127.0.0.1
+    host: 172.17.28.201
     port: 5672
     username: guest
     password: guest

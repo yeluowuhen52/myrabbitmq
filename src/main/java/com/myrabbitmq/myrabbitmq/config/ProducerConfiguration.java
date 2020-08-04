@@ -16,6 +16,7 @@ import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 /**
  * Created by Thinkpad on 2015/8/4  22:05.
  */
+
 /**
  * Created by Thinkpad on 2015/8/4  22:00.
  */
@@ -30,10 +31,10 @@ public class ProducerConfiguration {
 
     }
 
-    public ProducerConfiguration(String exchange,String queueName, String routingKey) {
+    public ProducerConfiguration(String exchange, String queueName, String routingKey) {
         this.queueName = queueName;
         this.routingKey = routingKey;
-        this.exchange=exchange;
+        this.exchange = exchange;
         this.rabbitTemplate = rabbitTemplate();
         RabbitAdmin admin = new RabbitAdmin(this.rabbitTemplate.getConnectionFactory());
         admin.declareQueue(new Queue(this.queueName));
@@ -56,6 +57,7 @@ public class ProducerConfiguration {
     public void setRoutingKey(String routingKey) {
         this.routingKey = routingKey;
     }
+
     public String getQueueName() {
         return queueName;
     }
@@ -63,6 +65,7 @@ public class ProducerConfiguration {
     public String getRoutingKey() {
         return routingKey;
     }
+
     public RabbitTemplate rabbitTemplate() {
         RabbitTemplate template = new RabbitTemplate(connectionFactory());
 //The routing key is set to the name of the queue by the broker for the default exchange.
@@ -74,8 +77,8 @@ public class ProducerConfiguration {
     }
 
     public ConnectionFactory connectionFactory() {
-        if(connectionFactory == null){
-            connectionFactory = new CachingConnectionFactory("localhost",5672);
+        if (connectionFactory == null) {
+            connectionFactory = new CachingConnectionFactory("localhost", 5672);
             connectionFactory.setUsername("guest");
             connectionFactory.setPassword("guest");
         }
@@ -86,7 +89,7 @@ public class ProducerConfiguration {
         this.rabbitTemplate.convertAndSend(s);
     }
 
-    public void send(String exchange,String routingKey,Object msg) {
-        this.rabbitTemplate.convertAndSend(exchange,routingKey,msg);
+    public void send(String exchange, String routingKey, Object msg) {
+        this.rabbitTemplate.convertAndSend(exchange, routingKey, msg);
     }
 }
